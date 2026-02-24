@@ -1,20 +1,26 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Route;
+use App\Mail\RappelVaccin;
+use App\Models\Rappel;
+use Illuminate\Support\Facades\Mail;
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/preview-email', function() {
+    // Récupère le premier rappel ou crée un faux pour la prévisualisation
+    $rappel = Rappel::with(['enfant.user', 'vaccin'])->first();
+    
+    if (!$rappel) {
+        // Crée un faux rappel pour la preview
+        $enfant = App\Models\Enfant::first();
+        $vaccin = App\Models\Vaccin::first();
+        
+        if (!$enfant || !$vaccin) {
+            return "Crée d'abord un enfant et un vaccin !";
+        }
+        
+        $rappel = new App\Models\Rappel();
+        $rappel->enfant = $enfant;
+        $rappel->vaccin = $vaccin;
+    }
+    
+    return new App\Mail\RappelVaccin($rappel);
 });
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-
-require __DIR__.'/auth.php';

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Enfant extends Model
 {
@@ -36,8 +37,28 @@ class Enfant extends Model
         return $this->hasMany(Dose::class);
     }
 
+    // ✅ VERSION CORRIGÉE - GARANTIE POSITIVE
     public function getAgeMoisAttribute()
     {
-        return now()->diffInMonths($this->date_naissance);
+        $naissance = Carbon::parse($this->date_naissance);
+        $maintenant = Carbon::now();
+        return (int) round($naissance->diffInMonths($maintenant));
+    }
+    
+    // ✅ MÉTHODE UTILE POUR LA PRÉSENTATION
+    public function getAgeFormateAttribute()
+    {
+        $moisTotal = $this->ageMois;
+        
+        $ans = floor($moisTotal / 12);
+        $mois = $moisTotal % 12;
+        
+        if ($ans > 0 && $mois > 0) {
+            return $ans . ' an' . ($ans > 1 ? 's' : '') . ' et ' . $mois . ' mois';
+        } elseif ($ans > 0) {
+            return $ans . ' an' . ($ans > 1 ? 's' : '');
+        } else {
+            return $mois . ' mois';
+        }
     }
 }
