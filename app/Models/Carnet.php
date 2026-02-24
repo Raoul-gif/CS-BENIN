@@ -14,6 +14,7 @@ class Carnet extends Model
     protected $casts = [
         'date_generation' => 'datetime',
         'date_expiration' => 'datetime'
+
     ];
 
     public function enfant()
