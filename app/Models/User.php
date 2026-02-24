@@ -21,6 +21,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'telephone',
+        'langue_preferee',
     ];
 
     /**
@@ -44,5 +46,13 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * Relation : Un parent a plusieurs enfants
+     */
+    public function enfants()
+    {
+        return $this->hasMany(Enfant::class);
     }
 }

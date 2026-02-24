@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -10,34 +9,42 @@ class Enfant extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
-        'nom',
-        'prenom',
-        'date_naissance',
-        'lieu_naissance',
-        'nom_mere',
-        'nom_pere',
-        'telephone_urgence',
-        'groupe_sanguin',
-        'photo'
+        'user_id', 'nom', 'prenom', 'date_naissance', 
+        'lieu_naissance', 'sexe', 'groupe_sanguin', 'photo'
     ];
 
     protected $casts = [
-        'date_naissance' => 'date'
+        'date_naissance' => 'date',
     ];
 
-    public function user()
+    public function parent()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function doses()
+    public function rappels()
     {
-        return $this->hasMany(Dose::class);
+        return $this->hasMany(Rappel::class);
     }
 
-    public function getAgeMoisAttribute()
+    public function historiques()
     {
-        return now()->diffInMonths($this->date_naissance);
+        return $this->hasMany(Historique::class);
+    }
+
+    public function getAgeEnMoisAttribute()
+    {
+        return $this->date_naissance->diffInMonths(now());
+    }
+
+    public function getAgeFormateAttribute()
+    {
+        $mois = $this->age_en_mois;
+        if ($mois < 24) {
+            return $mois . ' mois';
+        }
+        $ans = floor($mois / 12);
+        $moisRestants = $mois % 12;
+        return $ans . ' ans ' . ($moisRestants > 0 ? $moisRestants . ' mois' : '');
     }
 }
