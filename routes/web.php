@@ -23,7 +23,7 @@ Route::get('/', function () {
 // Routes pour l'historique
 Route::resource('enfants.historique', HistoriqueController::class)->except(['create']);
 
-// Routes pour l'export PDF (Code de Lauriano)
+// Routes pour l'export PDF
 Route::prefix('export')->name('export.')->group(function () {
     Route::get('enfant/{enfant}/carnet', [ExportController::class, 'telechargerCarnet'])->name('carnet');
     Route::get('enfant/{enfant}/apercu', [ExportController::class, 'apercu'])->name('apercu');
@@ -33,7 +33,7 @@ Route::prefix('export')->name('export.')->group(function () {
     Route::delete('carnet/{carnet}', [ExportController::class, 'supprimer'])->name('supprimer');
 });
 
-// Route de preview email (Ton code)
+// Route de preview email
 Route::get('/preview-email', function() {
     // Récupère le premier rappel ou crée un faux pour la prévisualisation
     $rappel = Rappel::with(['enfant.user', 'vaccin'])->first();
