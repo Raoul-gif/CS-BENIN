@@ -1,10 +1,12 @@
 <?php
 
-<<<<<<< HEAD
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\User\DashboardController;
 use App\Http\Middleware\AdminMiddleware;
+use App\Mail\RappelVaccin;
+use App\Models\Rappel;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,7 +39,7 @@ Route::middleware('auth')->group(function () {
 |--------------------------------------------------------------------------
 */
 Route::prefix('admin')->name('admin.')->middleware(['auth', AdminMiddleware::class])->group(function () {
-    // Dashboard admin - nom changé de 'dashboard' à 'home' pour éviter le conflit
+    // Dashboard admin
     Route::get('/', [AdminController::class, 'index'])->name('home');
     
     // Gestion des utilisateurs
@@ -64,7 +66,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', AdminMiddleware::cla
     Route::get('/parametres', [AdminController::class, 'settings'])->name('settings');
     Route::post('/parametres', [AdminController::class, 'updateSettings'])->name('settings.update');
     
-    // Gestion des administrateurs (NOUVEAU)
+    // Gestion des administrateurs
     Route::get('/admin-management', [AdminController::class, 'adminManagement'])->name('management');
     Route::post('/admin-management/add', [AdminController::class, 'addAdmin'])->name('add');
     Route::delete('/admin-management/{id}', [AdminController::class, 'removeAdmin'])->name('remove');
@@ -72,15 +74,9 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', AdminMiddleware::cla
 
 /*
 |--------------------------------------------------------------------------
-| Routes d'authentification
+| Route de prévisualisation des emails (AJOUTÉE depuis l'autre branche)
 |--------------------------------------------------------------------------
 */
-require __DIR__.'/auth.php';
-=======
-use App\Mail\RappelVaccin;
-use App\Models\Rappel;
-use Illuminate\Support\Facades\Mail;
-
 Route::get('/preview-email', function() {
     // Récupère le premier rappel ou crée un faux pour la prévisualisation
     $rappel = Rappel::with(['enfant.user', 'vaccin'])->first();
@@ -101,4 +97,10 @@ Route::get('/preview-email', function() {
     
     return new App\Mail\RappelVaccin($rappel);
 });
->>>>>>> origin/main
+
+/*
+|--------------------------------------------------------------------------
+| Routes d'authentification
+|--------------------------------------------------------------------------
+*/
+require __DIR__.'/auth.php';
