@@ -1,26 +1,20 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Dose extends Model
+class Historique extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'enfant_id',
-        'vaccin_id',
-        'date_administration',
-        'lieu_administration',
-        'lot',
-        'administrateur',
-        'notes'
+        'enfant_id', 'vaccin_id', 'date_administration',
+        'lieu_administration', 'professionnel_sante', 'lot_vaccin', 'notes'
     ];
 
     protected $casts = [
-        'date_administration' => 'date'
+        'date_administration' => 'date',
     ];
 
     public function enfant()

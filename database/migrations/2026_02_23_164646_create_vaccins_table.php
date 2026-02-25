@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,11 +11,10 @@ return new class extends Migration
             $table->id();
             $table->string('nom');
             $table->text('description')->nullable();
-            $table->integer('age_recommande_mois');
-            $table->integer('dose_numero');
-            $table->string('maladie_evitee');
-            $table->boolean('obligatoire')->default(true);
-            $table->string('code')->unique();
+            $table->integer('age_min_mois');
+            $table->integer('age_max_mois')->nullable();
+            $table->integer('dose_numero')->nullable();
+            $table->string('maladie_previent');
             $table->timestamps();
         });
     }

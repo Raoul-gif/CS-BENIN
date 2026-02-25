@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,44 +10,45 @@ class Enfant extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
-        'nom',
-        'prenom',
-        'date_naissance',
-        'lieu_naissance',
-        'nom_mere',
-        'nom_pere',
-        'telephone_urgence',
-        'groupe_sanguin',
-        'photo'
+        'user_id', 'nom', 'prenom', 'date_naissance', 
+        'lieu_naissance', 'sexe', 'groupe_sanguin', 'photo'
     ];
 
     protected $casts = [
-        'date_naissance' => 'date'
+        'date_naissance' => 'date',
     ];
 
-    public function user()
+    public function parent()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function doses()
+    public function rappels()
     {
-        return $this->hasMany(Dose::class);
+        return $this->hasMany(Rappel::class);
     }
 
-    // ✅ VERSION CORRIGÉE - GARANTIE POSITIVE
+    public function historiques()
+    {
+        return $this->hasMany(Historique::class);
+    }
+
+    /**
+     * Calculer l'âge en mois (positif garanti)
+     */
     public function getAgeMoisAttribute()
     {
         $naissance = Carbon::parse($this->date_naissance);
         $maintenant = Carbon::now();
         return (int) round($naissance->diffInMonths($maintenant));
     }
-    
-    // ✅ MÉTHODE UTILE POUR LA PRÉSENTATION
+
+    /**
+     * Formater l'âge en français (ex: 2 ans et 3 mois)
+     */
     public function getAgeFormateAttribute()
     {
-        $moisTotal = $this->ageMois;
+        $moisTotal = $this->age_mois;
         
         $ans = floor($moisTotal / 12);
         $mois = $moisTotal % 12;
@@ -60,5 +60,13 @@ class Enfant extends Model
         } else {
             return $mois . ' mois';
         }
+    }
+
+    /**
+     * Garder l'ancien nom pour compatibilité (optionnel)
+     */
+    public function getAgeEnMoisAttribute()
+    {
+        return $this->age_mois;
     }
 }
