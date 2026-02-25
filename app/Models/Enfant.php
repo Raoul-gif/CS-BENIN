@@ -3,6 +3,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Enfant extends Model
 {
@@ -32,19 +33,40 @@ class Enfant extends Model
         return $this->hasMany(Historique::class);
     }
 
-    public function getAgeEnMoisAttribute()
+    /**
+     * Calculer l'âge en mois (positif garanti)
+     */
+    public function getAgeMoisAttribute()
     {
-        return $this->date_naissance->diffInMonths(now());
+        $naissance = Carbon::parse($this->date_naissance);
+        $maintenant = Carbon::now();
+        return (int) round($naissance->diffInMonths($maintenant));
     }
 
+    /**
+     * Formater l'âge en français (ex: 2 ans et 3 mois)
+     */
     public function getAgeFormateAttribute()
     {
-        $mois = $this->age_en_mois;
-        if ($mois < 24) {
+        $moisTotal = $this->age_mois;
+        
+        $ans = floor($moisTotal / 12);
+        $mois = $moisTotal % 12;
+        
+        if ($ans > 0 && $mois > 0) {
+            return $ans . ' an' . ($ans > 1 ? 's' : '') . ' et ' . $mois . ' mois';
+        } elseif ($ans > 0) {
+            return $ans . ' an' . ($ans > 1 ? 's' : '');
+        } else {
             return $mois . ' mois';
         }
-        $ans = floor($mois / 12);
-        $moisRestants = $mois % 12;
-        return $ans . ' ans ' . ($moisRestants > 0 ? $moisRestants . ' mois' : '');
+    }
+
+    /**
+     * Garder l'ancien nom pour compatibilité (optionnel)
+     */
+    public function getAgeEnMoisAttribute()
+    {
+        return $this->age_mois;
     }
 }
