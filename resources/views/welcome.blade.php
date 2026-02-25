@@ -46,7 +46,6 @@
     </div>
   </section><!-- End Hero -->
 
-  <main id="main">
 
 <!-- ======= Featured Services Section ======= -->
 <section id="featured-services" class="featured-services">
@@ -96,136 +95,77 @@
 {{-- ***************************fin services de cs-benin******************************* --}}
 
 
-<!-- ======= Counts Section ======= -->
-<section id="counts" class="counts">
+
+
+    <!-- ======= Services Section ======= -->
+<section id="services" class="services">
   <div class="container" data-aos="fade-up">
 
-    <div class="row no-gutters">
+    <div class="section-title">
+      <h2>Nos Services</h2>
+      <p>La plateforme CS-BENIN facilite le suivi médical numérique des enfants au Bénin, en collaboration avec les parents et les centres de santé.</p>
+    </div>
 
-      <!-- Enfants suivis -->
-      <div class="col-lg-3 col-md-6 d-md-flex align-items-md-stretch">
-        <div class="count-box">
-          <i class="fas fa-child"></i>
-          <span data-purecounter-start="0" data-purecounter-end="120" data-purecounter-duration="1" class="purecounter"></span>
-          <p><strong>Enfants suivis</strong> dans notre plateforme</p>
-          <a href="">Voir les enfants &raquo;</a>
-        </div>
+    <div class="row">
+
+      <!-- Suivi des Enfants -->
+      <div class="col-lg-4 col-md-6 icon-box" data-aos="zoom-in" data-aos-delay="100">
+        <div class="icon icon-blue"><i class="fas fa-child"></i></div>
+        <h4 class="title"><a href="">Suivi des Enfants</a></h4>
+        <p class="description">
+          Enregistrement et gestion complète des informations médicales des enfants dès la naissance.
+        </p>
       </div>
 
-      <!-- Vaccins administrés -->
-      <div class="col-lg-3 col-md-6 d-md-flex align-items-md-stretch">
-        <div class="count-box">
-          <i class="fas fa-syringe"></i>
-          <span data-purecounter-start="0" data-purecounter-end="350" data-purecounter-duration="1" class="purecounter"></span>
-          <p><strong>Vaccins administrés</strong> cette année</p>
-          <a href="">Voir les vaccins &raquo;</a>
-        </div>
+      <!-- Suivi Vaccinal -->
+      <div class="col-lg-4 col-md-6 icon-box" data-aos="zoom-in" data-aos-delay="200">
+        <div class="icon icon-green"><i class="fas fa-syringe"></i></div>
+        <h4 class="title"><a href="">Suivi Vaccinal</a></h4>
+        <p class="description">
+          Historique des vaccins administrés avec calendrier automatique des prochaines doses.
+        </p>
       </div>
 
-      <!-- Rendez-vous médicaux -->
-      <div class="col-lg-3 col-md-6 d-md-flex align-items-md-stretch">
-        <div class="count-box">
-          <i class="fas fa-calendar-check"></i>
-          <span data-purecounter-start="0" data-purecounter-end="240" data-purecounter-duration="1" class="purecounter"></span>
-          <p><strong>Rendez-vous</strong> programmés pour vos enfants</p>
-          <a href="">Voir les rendez-vous &raquo;</a>
-        </div>
+      <!-- Gestion des Rendez-vous -->
+      <div class="col-lg-4 col-md-6 icon-box" data-aos="zoom-in" data-aos-delay="300">
+        <div class="icon icon-orange"><i class="fas fa-calendar-check"></i></div>
+        <h4 class="title"><a href="">Gestion des Rendez-vous</a></h4>
+        <p class="description">
+          Planification et suivi des consultations médicales dans les centres de santé partenaires.
+        </p>
       </div>
 
-      <!-- Rappels envoyés -->
-      <div class="col-lg-3 col-md-6 d-md-flex align-items-md-stretch">
-        <div class="count-box">
-          <i class="fas fa-bell"></i>
-          <span data-purecounter-start="0" data-purecounter-end="500" data-purecounter-duration="1" class="purecounter"></span>
-          <p><strong>Rappels</strong> envoyés aux parents</p>
-          <a href="">Voir les notifications &raquo;</a>
-        </div>
+      <!-- Rappels Automatiques -->
+      <div class="col-lg-4 col-md-6 icon-box" data-aos="zoom-in" data-aos-delay="400">
+        <div class="icon icon-red"><i class="fas fa-bell"></i></div>
+        <h4 class="title"><a href="">Rappels Automatiques</a></h4>
+        <p class="description">
+          Notifications automatiques envoyées aux parents pour les vaccins et rendez-vous à venir.
+        </p>
+      </div>
+
+      <!-- Dossier Médical Numérique -->
+      <div class="col-lg-4 col-md-6 icon-box" data-aos="zoom-in" data-aos-delay="500">
+        <div class="icon icon-purple"><i class="fas fa-notes-medical"></i></div>
+        <h4 class="title"><a href="">Dossier Médical Numérique</a></h4>
+        <p class="description">
+          Centralisation sécurisée des consultations, prescriptions et antécédents médicaux.
+        </p>
+      </div>
+
+      <!-- Statistiques & Rapports -->
+      <div class="col-lg-4 col-md-6 icon-box" data-aos="zoom-in" data-aos-delay="600">
+        <div class="icon icon-teal"><i class="fas fa-chart-line"></i></div>
+        <h4 class="title"><a href="">Statistiques & Rapports</a></h4>
+        <p class="description">
+          Génération de statistiques pour améliorer le suivi sanitaire des enfants au niveau national.
+        </p>
       </div>
 
     </div>
 
   </div>
-</section><!-- End Counts Section -->
-
-
-
-    <!-- ======= Features Section ======= -->
-    <section id="features" class="features">
-      <div class="container" data-aos="fade-up">
-
-        <div class="row">
-          <div class="col-lg-6 order-2 order-lg-1" data-aos="fade-right">
-            <div class="icon-box mt-5 mt-lg-0">
-              <i class="bx bx-receipt"></i>
-              <h4>Est labore ad</h4>
-              <p>Consequuntur sunt aut quasi enim aliquam quae harum pariatur laboris nisi ut aliquip</p>
-            </div>
-            <div class="icon-box mt-5">
-              <i class="bx bx-cube-alt"></i>
-              <h4>Harum esse qui</h4>
-              <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt</p>
-            </div>
-            <div class="icon-box mt-5">
-              <i class="bx bx-images"></i>
-              <h4>Aut occaecati</h4>
-              <p>Aut suscipit aut cum nemo deleniti aut omnis. Doloribus ut maiores omnis facere</p>
-            </div>
-            <div class="icon-box mt-5">
-              <i class="bx bx-shield"></i>
-              <h4>Beatae veritatis</h4>
-              <p>Expedita veritatis consequuntur nihil tempore laudantium vitae denat pacta</p>
-            </div>
-          </div>
-          <div class="image col-lg-6 order-1 order-lg-2" style='background-image: url("assets/img/features.jpg");' data-aos="zoom-in"></div>
-        </div>
-
-      </div>
-    </section><!-- End Features Section -->
-
-    <!-- ======= Services Section ======= -->
-    <section id="services" class="services services">
-      <div class="container" data-aos="fade-up">
-
-        <div class="section-title">
-          <h2>Services</h2>
-          <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
-        </div>
-
-        <div class="row">
-          <div class="col-lg-4 col-md-6 icon-box" data-aos="zoom-in" data-aos-delay="100">
-            <div class="icon"><i class="fas fa-heartbeat"></i></div>
-            <h4 class="title"><a href="">Lorem Ipsum</a></h4>
-            <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
-          </div>
-          <div class="col-lg-4 col-md-6 icon-box" data-aos="zoom-in" data-aos-delay="200">
-            <div class="icon"><i class="fas fa-pills"></i></div>
-            <h4 class="title"><a href="">Dolor Sitema</a></h4>
-            <p class="description">Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat tarad limino ata</p>
-          </div>
-          <div class="col-lg-4 col-md-6 icon-box" data-aos="zoom-in" data-aos-delay="300">
-            <div class="icon"><i class="fas fa-hospital-user"></i></div>
-            <h4 class="title"><a href="">Sed ut perspiciatis</a></h4>
-            <p class="description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>
-          </div>
-          <div class="col-lg-4 col-md-6 icon-box" data-aos="zoom-in" data-aos-delay="100">
-            <div class="icon"><i class="fas fa-dna"></i></div>
-            <h4 class="title"><a href="">Magni Dolores</a></h4>
-            <p class="description">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
-          </div>
-          <div class="col-lg-4 col-md-6 icon-box" data-aos="zoom-in" data-aos-delay="200">
-            <div class="icon"><i class="fas fa-wheelchair"></i></div>
-            <h4 class="title"><a href="">Nemo Enim</a></h4>
-            <p class="description">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque</p>
-          </div>
-          <div class="col-lg-4 col-md-6 icon-box" data-aos="zoom-in" data-aos-delay="300">
-            <div class="icon"><i class="fas fa-notes-medical"></i></div>
-            <h4 class="title"><a href="">Eiusmod Tempor</a></h4>
-            <p class="description">Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi</p>
-          </div>
-        </div>
-
-      </div>
-    </section><!-- End Services Section -->
+</section><!-- End Services Section -->
 
     <!-- ======= Appointment Section ======= -->
     <section id="appointment" class="appointment section-bg">
@@ -785,7 +725,6 @@
       </div>
     </section><!-- End Contact Section -->
 
-  </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
   <footer id="footer">
@@ -863,4 +802,4 @@
 
   <div id="preloader"></div>
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-@section('content')
+@endsection

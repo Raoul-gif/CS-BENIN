@@ -1797,3 +1797,132 @@ section {
   text-align: center;
   font-size: 13px;
 }
+
+
+/* *************services***************** */
+/* .services .icon-box {
+  padding: 30px;
+  border-radius: 12px;
+  transition: 0.3s;
+  color: #fff;
+  text-align: center;
+}
+
+.services .icon-box .icon {
+  margin-bottom: 15px;
+}
+
+.services .icon-box .icon i {
+  font-size: 28px;
+  padding: 15px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+}
+
+.services .icon-box:hover {
+  transform: translateY(-6px);
+}
+
+/* Couleurs personnalisées */
+/* .bg-blue {
+  background: linear-gradient(135deg, #2196F3, #1565C0);
+}
+
+.bg-green {
+  background: linear-gradient(135deg, #4CAF50, #2E7D32);
+}
+
+.bg-orange {
+  background: linear-gradient(135deg, #FF9800, #EF6C00);
+}
+
+.bg-red {
+  background: linear-gradient(135deg, #F44336, #C62828);
+}
+
+.bg-purple {
+  background: linear-gradient(135deg, #9C27B0, #6A1B9A);
+}
+
+.bg-teal {
+  background: linear-gradient(135deg, #009688, #00695C);
+}  */
+
+/* ******************deuxième essaie************** */
+/* .services .icon-box {
+  padding: 30px;
+  border-radius: 10px;
+  transition: 0.3s;
+  background: #fff;
+}
+
+.services .icon-box .icon {
+  margin-bottom: 15px;
+}
+
+.services .icon-box .icon i {
+  font-size: 26px;
+  padding: 18px;
+  border-radius: 50%;
+  color: #fff;
+} */
+
+/* Couleurs personnalisées pour chaque icône */
+
+/* .icon-blue i {
+  background: #2196F3; 
+}
+
+.icon-green i {
+  background: #4CAF50; 
+}
+
+.icon-orange i {
+  background: #FF9800; 
+}
+
+.icon-red i {
+  background: #F44336; 
+}
+
+.icon-purple i {
+  background: #9C27B0; 
+}
+
+.icon-teal i {
+  background: #009688; 
+} */
+
+/* .services .icon-box:hover {
+  transform: translateY(-5px);
+} */
+
+
+/* **************3ème essaie************ */
+
+.services .icon-box {
+  padding: 20px;
+  border-radius: 10px;
+  background: #fff;
+  text-align: center;
+  transition: 0.3s;
+}
+
+.services .icon-box .icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;       /* prend toute la largeur de la div icon-box */
+  height: 150px;     /* ajuste selon la taille souhaitée */
+  margin-bottom: 20px;
+  border-radius: 10px; /* coins arrondis de la zone colorée */
+  color: #fff;
+  font-size: 40px;
+}
+
+.icon-blue { background-color: #2196F3; }     /* bleu - enfants */
+.icon-green { background-color: #4CAF50; }    /* vert - vaccins */
+.icon-orange { background-color: #FF9800; }   /* orange - rendez-vous */
+.icon-red { background-color: #F44336; }      /* rouge - rappels */
+.icon-purple { background-color: #9C27B0; }   /* violet - dossier médical */
+.icon-teal { background-color: #009688; }     /* teal - statistiques */
