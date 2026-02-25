@@ -7,6 +7,7 @@ use App\Models\Enfant;
 use App\Models\Vaccin;
 use App\Models\Rappel;
 use App\Models\Setting;
+use App\Models\CentreSante; // NOUVEAU
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -33,7 +34,6 @@ class AdminController extends Controller
 
     /**
      * Liste tous les utilisateurs avec recherche
-     * MODIFIÉ POUR INCLURE LA RECHERCHE
      */
     public function users(Request $request)
     {
@@ -208,14 +208,41 @@ class AdminController extends Controller
     }
 
     /**
-     * Liste tous les enfants
+     * Liste tous les enfants avec filtres
      */
-    public function enfants()
+    public function enfants(Request $request)
     {
-        $enfants = Enfant::with('parent')
-            ->withCount('rappels')
-            ->latest()
-            ->paginate(15);
+        $query = Enfant::with('parent')->withCount('rappels');
+        
+        // Filtre par recherche (nom/prénom)
+        if ($request->has('search') && $request->search != '') {
+            $query->where(function($q) use ($request) {
+                $q->where('nom', 'like', '%' . $request->search . '%')
+                  ->orWhere('prenom', 'like', '%' . $request->search . '%');
+            });
+        }
+        
+        // Filtre par âge
+        if ($request->has('age') && $request->age != '') {
+            switch($request->age) {
+                case 'moins_1':
+                    $query->where('date_naissance', '>=', now()->subYear());
+                    break;
+                case '1_5':
+                    $query->whereBetween('date_naissance', [now()->subYears(5), now()->subYear()]);
+                    break;
+                case 'plus_5':
+                    $query->where('date_naissance', '<', now()->subYears(5));
+                    break;
+            }
+        }
+        
+        // Filtre par parent
+        if ($request->has('parent_id') && $request->parent_id != '') {
+            $query->where('user_id', $request->parent_id);
+        }
+        
+        $enfants = $query->latest()->paginate(15);
         
         // Statistiques sur les enfants
         $stats = [
@@ -225,7 +252,10 @@ class AdminController extends Controller
             'avec_rappels' => Enfant::has('rappels')->count(),
         ];
         
-        return view('admin.enfants', compact('enfants', 'stats'));
+        // Liste des parents pour le filtre
+        $parents = User::whereHas('enfants')->orderBy('name')->get();
+        
+        return view('admin.enfants', compact('enfants', 'stats', 'parents'));
     }
 
     /**
@@ -329,5 +359,141 @@ class AdminController extends Controller
         
         return redirect()->route('admin.management')
             ->with('success', "{$user->name} n'est plus administrateur.");
+    }
+
+    /**
+     * Liste des centres de santé
+     */
+    public function centresListe(Request $request)
+    {
+        $search = $request->get('search');
+        
+        $query = CentreSante::withCount('rappels as vaccins_effectues');
+        
+        if ($search) {
+            $query->where(function($q) use ($search) {
+                $q->where('nom', 'like', "%{$search}%")
+                  ->orWhere('ville', 'like', "%{$search}%")
+                  ->orWhere('responsable', 'like', "%{$search}%");
+            });
+        }
+        
+        $centres = $query->paginate(15);
+        
+        $stats = [
+            'total' => CentreSante::count(),
+            'actifs' => CentreSante::where('actif', true)->count(),
+            'vaccins_total' => Rappel::whereNotNull('centre_sante_id')->count(),
+        ];
+        
+        return view('admin.centres', compact('centres', 'stats'));
+    }
+
+    /**
+     * Formulaire d'ajout d'un centre
+     */
+    public function centreAjouter()
+    {
+        return view('admin.centres-form', ['centre' => null]);
+    }
+
+    /**
+     * Enregistrer un nouveau centre
+     */
+    public function centreStore(Request $request)
+    {
+        $validated = $request->validate([
+            'nom' => 'required|string|max:255',
+            'adresse' => 'nullable|string',
+            'ville' => 'required|string|max:100',
+            'telephone' => 'required|string|max:20',
+            'email' => 'nullable|email|max:255',
+            'responsable' => 'nullable|string|max:255',
+            'horaires' => 'nullable|string',
+            'actif' => 'sometimes|boolean',
+            'description' => 'nullable|string',
+        ]);
+        
+        $validated['actif'] = $request->has('actif');
+        
+        CentreSante::create($validated);
+        
+        return redirect()->route('admin.centres')
+            ->with('success', 'Centre de santé ajouté avec succès.');
+    }
+
+    /**
+     * Formulaire de modification d'un centre
+     */
+    public function centreModifier($id)
+    {
+        $centre = CentreSante::findOrFail($id);
+        return view('admin.centres-form', compact('centre'));
+    }
+
+    /**
+     * Mettre à jour un centre
+     */
+    public function centreUpdate(Request $request, $id)
+    {
+        $centre = CentreSante::findOrFail($id);
+        
+        $validated = $request->validate([
+            'nom' => 'required|string|max:255',
+            'adresse' => 'nullable|string',
+            'ville' => 'required|string|max:100',
+            'telephone' => 'required|string|max:20',
+            'email' => 'nullable|email|max:255',
+            'responsable' => 'nullable|string|max:255',
+            'horaires' => 'nullable|string',
+            'actif' => 'sometimes|boolean',
+            'description' => 'nullable|string',
+        ]);
+        
+        $validated['actif'] = $request->has('actif');
+        
+        $centre->update($validated);
+        
+        return redirect()->route('admin.centres')
+            ->with('success', 'Centre de santé mis à jour avec succès.');
+    }
+
+    /**
+     * Supprimer un centre
+     */
+    public function centreSupprimer($id)
+    {
+        $centre = CentreSante::findOrFail($id);
+        $centre->delete();
+        
+        return redirect()->route('admin.centres')
+            ->with('success', 'Centre de santé supprimé avec succès.');
+    }
+
+    /**
+     * Statistiques détaillées d'un centre
+     */
+    public function centreStats($id)
+    {
+        $centre = CentreSante::with(['rappels.enfant', 'rappels.vaccin'])
+            ->findOrFail($id);
+        
+        $vaccinsParMois = Rappel::where('centre_sante_id', $id)
+            ->selectRaw('MONTH(date_administration) as mois, COUNT(*) as total')
+            ->whereNotNull('date_administration')
+            ->groupBy('mois')
+            ->orderBy('mois')
+            ->get();
+        
+        $topVaccins = Vaccin::select('vaccins.*')
+            ->join('rappels', 'vaccins.id', '=', 'rappels.vaccin_id')
+            ->where('rappels.centre_sante_id', $id)
+            ->selectRaw('vaccins.*, COUNT(*) as total')
+            ->groupBy('vaccins.id')
+            ->orderByDesc('total')
+            ->limit(5)
+            ->get();
+        
+        return view('admin.centres-stats', compact('centre', 'vaccinsParMois', 'topVaccins'));
     }
 }

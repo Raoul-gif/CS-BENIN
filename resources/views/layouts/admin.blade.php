@@ -401,11 +401,15 @@
                     <i class="fas fa-syringe"></i>
                     Vaccins
                 </a>
+                <!-- NOUVEAU MENU CENTRES DE SANTÉ -->
+                <a href="{{ route('admin.centres') }}" class="{{ request()->routeIs('admin.centres*') ? 'active' : '' }}">
+                    <i class="fas fa-hospital"></i>
+                    Centres de santé
+                </a>
                 <a href="{{ route('admin.statistiques') }}" class="{{ request()->routeIs('admin.statistiques') ? 'active' : '' }}">
                     <i class="fas fa-chart-line"></i>
                     Statistiques
                 </a>
-                <!-- NOUVEAU MENU ADMINISTRATEURS -->
                 <a href="{{ route('admin.management') }}" class="{{ request()->routeIs('admin.management*') ? 'active' : '' }}">
                     <i class="fas fa-user-shield"></i>
                     Administrateurs
